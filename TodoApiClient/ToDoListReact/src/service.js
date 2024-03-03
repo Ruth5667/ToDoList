@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:7032';
+axios.defaults.baseURL = 'https://localhost:7032';
 
 // הוספת interceptor לתפיסת שגיאות ב-response ורישום ללוג
 axios.interceptors.response.use(
@@ -10,17 +10,15 @@ axios.interceptors.response.use(
   }
 );
 
-const apiUrl = "https://localhost:7032";
-
 export default {
   getTasks: async () => {
-    const result = await axios.get(`${apiUrl}/items`)    
+    const result = await axios.get(`/items`)    
     return result.data;
   },
   addTask: async(name)=>{
     console.log('addTask', name)
     try{
-      const result = await axios.post(`${apiUrl}/items`,{name});  
+      const result = await axios.post(`/items`,{name});  
       return result.data;
     }catch(error){
      console.error('Error adding task:', error);
@@ -31,7 +29,7 @@ export default {
   setCompleted: async(todo, isComplete)=>{
     console.log('setCompleted', {todo, isComplete})
     try{
-    const result = await axios.put(`${apiUrl}/items/${todo.id}`,{...todo,isComplete});   
+    const result = await axios.put(`/items/${todo.id}`,{...todo,isComplete});   
     return result.data;
     }catch (error) {
       console.error('Error setting task completion:', error);
@@ -42,7 +40,7 @@ export default {
   deleteTask:async(id)=>{
     console.log('deleteTask',id);
     try{
-      const result = await axios.delete(`${apiUrl}/items/${id}`)
+      const result = await axios.delete(`/items/${id}`)
       return result.data;
     }catch(error){
       console.error('Error deleting task:', error);
