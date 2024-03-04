@@ -1,11 +1,24 @@
 import axios from 'axios';
 axios.defaults.baseURL = 'https://localhost:7032';
 
+axios.interceptors.request.use(
+  request => {
+    console.log('Request:', request);
+    return request;
+  },
+  error => {
+    console.error('Interceptor Request Error:', error);
+    return Promise.reject(error);
+  }
+);
 // הוספת interceptor לתפיסת שגיאות ב-response ורישום ללוג
 axios.interceptors.response.use(
-  response => response,
+  response => {
+  console.log('Response:', response);
+  return response;
+  },
   error => {
-    console.error('Interceptor Error:', error);
+    console.error('Interceptor Response Error:', error);
     return Promise.reject(error);
   }
 );
